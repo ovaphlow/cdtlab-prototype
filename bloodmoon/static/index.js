@@ -1,6 +1,6 @@
 const Home = () => {
   return (
-    <div>
+    <div className="container-fluid">
       <h1>111</h1>
     </div>
   )
