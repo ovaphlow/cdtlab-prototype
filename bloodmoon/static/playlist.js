@@ -41,7 +41,19 @@ const Playlist = () => {
   }
 
   const handleFileRemove = event => {
-    console.info('remove', event.target.getAttribute('data-id'))
+    if (!!!window.confirm('确定要删除当前数据？')) return
+    fetch(`/api/file/${event.target.getAttribute('data-id')}`, {
+      method: 'DELETE'
+    })
+      .then(response => response.json())
+      .then(res => {
+        if (res.message) {
+          window.alert(res.message)
+          return
+        }
+        window.location.reload(true)
+      })
+      .catch(err => window.console.error(err))
   }
 
   const handleRemove = () => {
@@ -112,9 +124,9 @@ const Playlist = () => {
         </div>
 
         <div className="card-body">
-          {
-            fileList.map(it => (
-              <ul className="list-group">
+          <ul className="list-group">
+            {
+              fileList.map(it => (
                 <li className="list-group-item">
                   <h5>
                     {it.path}
@@ -125,6 +137,14 @@ const Playlist = () => {
                       </em>
                     </small>
                   </h5>
+
+                  <div className="btn-group">
+                    <button type="button" className="btn btn-sm btn-light"
+                        onClick={handleFileRemove}
+                    >
+                      <i className="fa fa-fw fa-trash" data-id={it.id}></i>
+                    </button>
+                  </div>
 
                   <div className="btn-group pull-right">
                     <button type="button" className="btn btn-sm btn-light"
@@ -138,17 +158,11 @@ const Playlist = () => {
                     >
                       <i className="fa fa-fw fa-level-down" data-id={it.id}></i>
                     </button>
-
-                    <button type="button" className="btn btn-sm btn-light"
-                        onClick={handleFileRemove}
-                    >
-                      <i className="fa fa-fw fa-trash" data-id={it.id}></i>
-                    </button>
                   </div>
                 </li>
-              </ul>
-            ))
-          }
+              ))
+            }
+          </ul>
         </div>
       </div>
 

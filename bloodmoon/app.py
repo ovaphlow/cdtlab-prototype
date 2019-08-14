@@ -109,3 +109,18 @@ def file_list(id):
         'message': '',
         'content': _list
     })
+
+
+@app.route('/api/file/<id>', methods=['DELETE'])
+def file_spec(id):
+    session = Session()
+    sql = '''
+        delete from file where id = :id
+    '''
+    session.execute(sql, { 'id': id })
+    session.commit()
+    session.close()
+    return json.dumps({
+        'message': '',
+        'content': ''
+    })
