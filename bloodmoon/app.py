@@ -6,6 +6,8 @@ from . import globalvars
 
 app = Flask(__name__)
 
+Session = sessionmaker(bind=globalvars.engine)
+
 
 @app.route('/')
 def home():
@@ -14,12 +16,12 @@ def home():
 
 @app.route('/api/recent/', methods=['GET'])
 def recent():
-    Session = sessionmaker(bind=globalvars.engine)
     session = Session()
     sql = '''
         select * from playlist
     '''
     result = session.execute(sql).fetchall()
+    session.close()
 
     _list = []
     for row in result:
@@ -30,9 +32,29 @@ def recent():
     })
 
 
-@app.route('/api/playlist/<id>', methods=['GET', 'PUT'])
-def playlist(id):
-    Session = sessionmaker(bind=globalvars.engine)
+@app.route('/api/playlist/', methods=['POST'])
+def playlist_list():
+    session = Session()
+
+    if request.method == 'POST':
+        body = json.loads(request.get_data())
+        sql = '''
+            insert into
+                playlist (id, name)
+            values
+                ((select max(id) from playlist) + 1, :name)
+        '''
+        session.execute(sql, body)
+        session.commit()
+        session.close()
+        return json.dumps({
+            'message': '',
+            'content': ''
+        })
+
+
+@app.route('/api/playlist/<id>', methods=['GET', 'PUT', 'DELETE'])
+def playlist_spec(id):
     session = Session()
 
     if request.method == 'PUT':
@@ -40,8 +62,21 @@ def playlist(id):
         sql = '''
             update playlist set name = :name where id = :id
         '''
-        result = session.execute(sql, body)
+        session.execute(sql, body)
         session.commit()
+        session.close()
+        return json.dumps({
+            'message': '',
+            'content': ''
+        })
+
+    elif request.method == 'DELETE':
+        sql = '''
+            delete from playlist where id = :id
+        '''
+        session.execute(sql, { 'id': id })
+        session.commit()
+        session.close()
         return json.dumps({
             'message': '',
             'content': ''
@@ -51,8 +86,26 @@ def playlist(id):
         select * from playlist where id = :id limit 1
     '''
     result = session.execute(sql, { 'id': id }).fetchone()
-    print(dict(result))
+    session.close()
     return json.dumps({
         'message': '',
         'content': dict(result)
+    })
+
+
+@app.route('/api/playlist/<id>/file/', methods=['GET'])
+def file_list(id):
+    session = Session()
+    sql = '''
+        select * from file where master_id = :id order by idx
+    '''
+    result = session.execute(sql, { 'id': id }).fetchall()
+    session.close()
+
+    _list = []
+    for row in result:
+        _list.append(dict(row))
+    return json.dumps({
+        'message': '',
+        'content': _list
     })

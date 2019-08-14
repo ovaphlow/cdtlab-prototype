@@ -12,7 +12,10 @@ const Navbar = () => {
         </li>
 
         <li className="nav-item active">
-          <a className="nav-link" href="test.html">首页</a>
+          <a className="nav-link" href="playlist-save.html">
+            <i className="fa fa-fw fa-plus"></i>
+            新增投放主题
+          </a>
         </li>
       </ul>
     </nav>
