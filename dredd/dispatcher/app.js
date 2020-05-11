@@ -28,10 +28,10 @@ app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 })
 
-// ;(() => {
-//   const router = require('./routes/vault')
-//   app.use(router.routes())
-//   app.use(router.allowedMethods())
-// })
+;(() => {
+  const router = require('./route/customer')
+  app.use(router.routes())
+  app.use(router.allowedMethods())
+})()
 
 module.exports = app

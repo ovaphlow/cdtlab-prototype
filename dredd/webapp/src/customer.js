@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter as Router, Switch, Route } from 'react-router-dom'
+import { v5 as uuidv5 } from 'uuid'
 
 ReactDOM.render(<Index />, document.getElementById('app'))
 
@@ -44,25 +45,32 @@ function Detail(props) {
   const [address_level3, setAddressLevel3] = useState('')
   const [address_level4, setAddressLevel4] = useState('')
 
-  // const handleSave = async () => {
-  //   if (!!!name) {
-  //     window.alert('请完整填写所需信息')
-  //     return
-  //   }
+  const handleSave = async () => {
+    if (!!!name) {
+      window.alert('请完整填写所需信息')
+      return
+    }
 
-  //   const data = {
-  //     name: name,
-  //     tel: tel,
-  //     address_level1: address_level1,
-  //     address_level2: address_level2,
-  //     address_level3: address_level3,
-  //     address_level4: address_level4,
-  //   }
+    const data = {
+      uuid: uuidv5(name, uuidv5.DNS),
+      name: name,
+      tel: tel,
+      address_level1: address_level1,
+      address_level2: address_level2,
+      address_level3: address_level3,
+      address_level4: address_level4,
+    }
 
-  //   if (props.category === '新增') {
-
-  //   }
-  // }
+    if (props.category === '新增') {
+      let res = await window.fetch(`/api/customer/`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      res = await res.json()
+      console.info(res)
+    }
+  }
 
   return (
     <>
@@ -154,6 +162,7 @@ function Detail(props) {
 
                 <div className="btn-group pull-right">
                   <button type="button" className="btn btn-primary"
+                    onClick={handleSave}
                   >
                     <i className="fa fa-fw fa-check"></i>
                     保存
