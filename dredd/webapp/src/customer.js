@@ -18,22 +18,27 @@ function Index() {
 
 function List() {
   return (
-    <>
+    <div className="container">
       <h1>CUSTOMER - LIST</h1>
-      <ul className="list-inline">
-        <li className="list-inline-item">
-          <a href="home.html">首页</a>
-        </li>
 
-        <li className="list-inline-item">
-          <a href="#/">查询</a>
-        </li>
+      <div className="row justify-content-lg-center">
+        <ul className="list-inline">
+          <li className="list-inline-item">
+            <a href="home.html">首页</a>
+          </li>
 
-        <li className="list-inline-item">
-          <a href="#新增">新增</a>
-        </li>
-      </ul>
-    </>
+          <li className="list-inline-item">
+            <a href="#/">
+              <strong>查询</strong>
+            </a>
+          </li>
+
+          <li className="list-inline-item">
+            <a href="#新增">新增</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   )
 }
 
@@ -73,21 +78,26 @@ function Detail(props) {
   }
 
   return (
-    <>
-      <h1>CUSTOMER - {props.category} DETAIL</h1>
-      <ul className="list-inline">
-        <li className="list-inline-item">
-          <a href="home.html">首页</a>
-        </li>
+    <div className="container">
+      <h1>{props.category} CUSTOMER</h1>
 
-        <li className="list-inline-item">
-          <a href="#/">查询</a>
-        </li>
+      <div className="row justify-content-md-center">
+        <ul className="list-inline">
+          <li className="list-inline-item">
+            <a href="home.html">首页</a>
+          </li>
 
-        <li className="list-inline-item">
-          <a href="#新增">新增</a>
-        </li>
-      </ul>
+          <li className="list-inline-item">
+            <a href="#/">查询</a>
+          </li>
+
+          <li className="list-inline-item">
+            <a href="#新增">
+              <strong>新增</strong>
+            </a>
+          </li>
+        </ul>
+      </div>
 
       <div className="container">
         <div className="row">
@@ -173,6 +183,6 @@ function Detail(props) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
