@@ -13,7 +13,6 @@ router.get('/', async ctx => {
 })
 
 router.post('/', async ctx => {
-  console.info(ctx.request.body)
   const client = await postgres.connect()
   try {
     const sql = `
@@ -22,7 +21,7 @@ router.post('/', async ctx => {
           address_level1, address_level2, address_level3, address_level4)
         values ($1, $2, $3,
           $4, $5, $6, $7)
-      returing id
+      returning id
     `
     const result = await client.query(sql, [
       ctx.request.body.uuid,

@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel public/**/*.html"
+    "watch": "parcel watch public/**/*.html",
+    "start": "parcel public/**/*.html",
+    "build": "parcel build public/**/*.html"
   },
   "keywords": [],
   "author": "",

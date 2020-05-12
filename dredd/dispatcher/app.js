@@ -1,11 +1,19 @@
+const path = require('path')
+
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
+const staticCache = require('koa-static-cache')
 
 const config = require('./config')
 
 const app = new Koa()
 
 app.env = config.env
+
+app.use(staticCache(path.join(__dirname, '../webapp/dist'), {
+  maxAge: 60 * 60 * 24 * 7,
+  gzip: true
+}))
 
 app.use(bodyParser({
   jsonLimit: '4mb'
