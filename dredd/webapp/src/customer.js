@@ -229,21 +229,38 @@ function Detail(props) {
         <div className="row">
           <div className="offset-2 col-8">
             <div className="card shadow">
-              <div className="card-body">
-                <div className="form-group">
-                  <label>名称</label>
-                  <input type="text" value={name || ''} required
-                    className="form-control"
-                    onChange={event => setName(event.target.value)}
-                  />
+              <div className="card-header">
+                <div className="btn-group pull-right">
+                  <button type="button" className="btn btn-outline-success btn-sm"
+                    onClick={() => window.location = `customer-journal.html#/新增?customer_id=${customer_id}`}
+                  >
+                    <i className="fa fa-fw fa-plus"></i>
+                    沟通记录
+                  </button>
                 </div>
+              </div>
 
-                <div className="form-group">
-                  <label>电话</label>
-                  <input type="tel" value={tel || ''}
-                    className="form-control"
-                    onChange={event => setTel(event.target.value)}
-                  />
+              <div className="card-body">
+                <div className="row">
+                  <div className="col">
+                    <div className="form-group">
+                      <label>名称</label>
+                      <input type="text" value={name || ''} required
+                        className="form-control"
+                        onChange={event => setName(event.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-4">
+                    <div className="form-group">
+                      <label>电话</label>
+                      <input type="tel" value={tel || ''}
+                        className="form-control"
+                        onChange={event => setTel(event.target.value)}
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="row">
@@ -279,7 +296,6 @@ function Detail(props) {
                 </div>
 
                 <div className="form-group">
-                  <label></label>
                   <input type="text" value={address_level4 || ''}
                     className="form-control"
                     onChange={event => setAddressLevel4(event.target.value)}
