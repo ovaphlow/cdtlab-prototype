@@ -114,6 +114,7 @@ function Detail(props) {
   return (
     <div className="container">
       <h1>CUSTOMER JOURNAL - {props.category}</h1>
+      <hr />
 
       <div className="row justify-content-md-center">
         <ul className="list-inline">

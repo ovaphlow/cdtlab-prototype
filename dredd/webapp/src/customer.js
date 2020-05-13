@@ -50,6 +50,7 @@ function List() {
   return (
     <div className="container">
       <h1>CUSTOMER - LIST</h1>
+      <hr />
 
       <div className="row justify-content-lg-center">
         <ul className="list-inline">
@@ -215,6 +216,7 @@ function Detail(props) {
   return (
     <div className="container">
       <h1>CUSTOMER - {props.category}</h1>
+      <hr />
 
       <div className="row justify-content-md-center">
         <ul className="list-inline">
