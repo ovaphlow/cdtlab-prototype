@@ -4,6 +4,8 @@ import { HashRouter as Router, Switch, Route, useParams } from 'react-router-dom
 import { v5 as uuidv5 } from 'uuid'
 import moment from 'moment'
 
+import jsSHA from 'jssha'
+
 import { ListComponent as CustomerJournalList } from './customer-journal'
 
 ReactDOM.render(<Index />, document.getElementById('app'))
@@ -40,6 +42,10 @@ function List() {
   }
 
   useEffect(() => {
+    // const shaObj = new jsSHA('SHA-256', 'TEXT', { encoding: 'UTF8' })
+    // shaObj.update('1231231231')
+    // const hash = shaObj.getHash('HEX')
+    // console.info(hash)
     ;(async () => {
       let res = await window.fetch(`/api/customer/`)
       res = await res.json()
