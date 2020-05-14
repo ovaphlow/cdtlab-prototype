@@ -4,7 +4,8 @@ const config = {
   env: 'development',  
   app: {
     port: 5000,
-    numChildProcesses: os.cpus().length
+    numChildProcesses: os.cpus().length,
+    salt: '89ufjio239oikwef8023r90i'
   },
   postgres: {
     user: 'hengda',

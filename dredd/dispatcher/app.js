@@ -48,4 +48,10 @@ app.on('error', (err, ctx) => {
   app.use(router.allowedMethods())
 })()
 
+;(() => {
+  const router = require('./route/user')
+  app.use(router.routes())
+  app.use(router.allowedMethods())
+})()
+
 module.exports = app
