@@ -17,6 +17,13 @@ function Index() {
           </li>
 
           <li className="list-inline-item">
+            <a href="user.html#/登录">
+              <i className="fa fa-fw fa-sign-in"></i>
+              SIGN IN
+            </a>
+          </li>
+
+          <li className="list-inline-item">
             <a href="user.html#/注册">
               <i className="fa fa-fw fa-user-plus"></i>
               SIGN UP
