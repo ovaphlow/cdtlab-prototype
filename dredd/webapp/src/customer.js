@@ -52,33 +52,34 @@ function List() {
       <h1>CUSTOMER - LIST</h1>
       <hr />
 
-      <div className="row justify-content-lg-center">
-        <ul className="list-inline">
-          <li className="list-inline-item">
-            <a href="home.html">
-              <i className="fa fa-fw fa-home"></i>
-              首页
-            </a>
-          </li>
-
-          <li className="list-inline-item">
-            <a href="#/">
-              <i className="fa fa-fw fa-search"></i>
-              <strong>查询</strong>
-            </a>
-          </li>
-
-          <li className="list-inline-item">
-            <a href="#新增">
-              <i className="fa fa-fw fa-plus"></i>
-              新增
-            </a>
-          </li>
-        </ul>
-      </div>
-
       <div className="row">
         <div className="offset-2 col-8">
+          <nav aria-label="breadcrumb">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <a href="index.html">
+                  <i className="fa fa-fw fa-home"></i>
+                  HOME
+                </a>
+              </li>
+
+              <li className="breadcrumb-item active" aria-current="page">
+                CUSTOMER
+              </li>
+            </ol>
+          </nav>
+
+          <div className="btn-group pull-right">
+            <button type="button" className="btn btn-outline-success btn-sm"
+              onClick={() => window.location = '#/新增'}
+            >
+              <i className="fa fa-fw fa-plus"></i>
+              新增
+            </button>
+          </div>
+
+          <div className="clearfix m-2"></div>
+
           <div className="card shadow">
             <div className="card-header">
               <div className="input-group">
@@ -218,32 +219,30 @@ function Detail(props) {
       <h1>CUSTOMER - {props.category}</h1>
       <hr />
 
-      <div className="row justify-content-md-center">
-        <ul className="list-inline">
-          <li className="list-inline-item">
-            <a href="home.html">
-              <i className="fa fa-fw fa-home"></i>
-              首页
-            </a>
-          </li>
-
-          <li className="list-inline-item">
-            <a href="#/">
-              <i className="fa fa-fw fa-search"></i>
-              查询
-            </a>
-          </li>
-
-          <li className="list-inline-item">
-            <a href="#新增">
-              <i className="fa fa-fw fa-plus"></i>
-              <strong>新增</strong>
-            </a>
-          </li>
-        </ul>
-      </div>
-
       <div className="row">
+        <div className="col-8 offset-2">
+          <nav aria-label="breadcrumb">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <a href="index.html">
+                  <i className="fa fa-fw fa-home"></i>
+                  HOME
+                </a>
+              </li>
+
+              <li className="breadcrumb-item">
+                <a href="#/">
+                  CUSTOMER
+                </a>
+              </li>
+
+              <li className="breadcrumb-item active" aria-current="page">
+                {props.category}
+              </li>
+            </ol>
+          </nav>
+        </div>
+
         <div className={props.category === '新增' ? 'offset-2 col-8' : 'col-8'}>
           <div className="card shadow">
             <div className="card-header">

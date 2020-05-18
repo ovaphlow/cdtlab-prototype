@@ -116,19 +116,33 @@ function Detail(props) {
       <h1>CUSTOMER JOURNAL - {props.category}</h1>
       <hr />
 
-      <div className="row justify-content-md-center">
-        <ul className="list-inline">
-          <li className="list-inline-item">
-            <a href="home.html">
-              <i className="fa fa-fw fa-home"></i>
-              首页
-            </a>
-          </li>
-        </ul>
-      </div>
-
       <div className="row">
         <div className="offset-2 col-8">
+          <nav aria-label="breadcrumb">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <a href="index.html">
+                  <i className="fa fa-fw fa-home"></i>
+                  HOME
+                </a>
+              </li>
+
+              <li className="breadcrumb-item">
+                <a href="customer.html">
+                  CUSTOMER
+                </a>
+              </li>
+
+              <li className="breadcrumb-item">
+                JOURNAL
+              </li>
+
+              <li className="breadcrumb-item active" aria-current="page">
+                {props.category}
+              </li>
+            </ol>
+          </nav>
+
           <div className="card shadow">
             <div className="card-header">
               <div className="btn-group">
