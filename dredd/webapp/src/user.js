@@ -51,7 +51,7 @@ function SignUp() {
 
   return (
     <div className="container">
-      <h1>用户 - 注册</h1>
+      <h1>STAFF - SIGN UP</h1>
       <hr />
 
       <div className="row justify-content-md-center">
@@ -116,8 +116,36 @@ function SignIn() {
   const [password, setPassword] = useState('')
 
   const handleSignIn = async () => {
-    console.log(1)
+    if (!!!email || !!!password) {
+      window.alert('请完整填写所需信息')
+      return
+    }
+
+    const data = {
+      email: email,
+      password: md5(password)
+    }
+    
+    let res = await window.fetch(`/api/user/sign-in`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    res = await res.json()
+    if (res.message) {
+      window.alert(res.message)
+      return
+    }
+    if (!!!res.content.certified) {
+      window.alert('当前登录的用户还没有通过认证。')
+    }
+    window.sessionStorage.setItem('auth', JSON.stringify(res.content))
+    window.location = 'index.html'
   }
+
+  useEffect(() => {
+    window.sessionStorage.removeItem('auth')
+  }, [])
 
   return (
     <div className="container">

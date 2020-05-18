@@ -46,3 +46,32 @@ router.post('/sign-up', async ctx => {
     cnx.release()
   }
 })
+
+router.put('/sign-in', async ctx => {
+  const cnx = await postgres.connect()
+  try {
+    const sql = `
+      select * from dredd.staff where email = $1
+    `
+    const result = await cnx.query(sql, [ctx.request.body.email])
+    if (result.rowCount !== 1) {
+      ctx.response.body = {message: '用户不存在或帐号异常，请联系管理员。', content: '' }
+      return
+    }
+    const hmac = crypto.createHmac('sha256', result.rows[0].salt)
+    hmac.update(ctx.request.body.password)
+    const password_salted = hmac.digest('hex')
+    if (password_salted !== result.rows[0].password) {
+      ctx.response.body = {message: 'EMAIL或密码错误', content: '' }
+      return
+    }
+    result.rows[0].password = undefined
+    result.rows[0].salt = undefined
+    ctx.response.body = { message: '', content: result.rows[0] }
+  } catch (err) {
+    console.error(err)
+    ctx.response.body = { message: '服务器错误', content: '' }
+  } finally {
+    cnx.release()
+  }
+})

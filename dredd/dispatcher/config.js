@@ -3,7 +3,7 @@ const os = require('os')
 const config = {
   env: 'development',  
   app: {
-    port: 5000,
+    port: 8900,
     numChildProcesses: os.cpus().length,
     salt: '89ufjio239oikwef8023r90i'
   },
