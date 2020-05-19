@@ -139,7 +139,7 @@ function Detail(props) {
 
   return (
     <div className="container">
-      <h1>STAFF - {props.category}</h1>
+      <h1>STAFF</h1>
       <hr />
 
       <div className="row">
@@ -223,6 +223,5 @@ function Detail(props) {
         </div>
       </div>
     </div>
-
   )
 }

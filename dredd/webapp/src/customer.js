@@ -50,7 +50,7 @@ function List() {
 
   return (
     <div className="container">
-      <h1>CUSTOMER - LIST</h1>
+      <h1>CUSTOMER</h1>
       <hr />
 
       <div className="row">
@@ -217,7 +217,7 @@ function Detail(props) {
 
   return (
     <div className="container">
-      <h1>CUSTOMER - {props.category}</h1>
+      <h1>CUSTOMER</h1>
       <hr />
 
       <div className="row">
