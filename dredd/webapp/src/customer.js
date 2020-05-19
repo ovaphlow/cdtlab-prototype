@@ -5,6 +5,7 @@ import { v5 as uuidv5 } from 'uuid'
 import moment from 'moment'
 
 import { ListComponent as CustomerJournalList } from './customer-journal'
+import { AddressLevel1Picker, AddressLevel2Picker, AddressLevel3Picker, AddressLevel4Picker } from './Component'
 
 ReactDOM.render(<Index />, document.getElementById('app'))
 
@@ -243,7 +244,7 @@ function Detail(props) {
           </nav>
         </div>
 
-        <div className={props.category === '新增' ? 'offset-2 col-8' : 'col-8'}>
+        <div className="offset-2 col-8">
           <div className="card shadow">
             <div className="card-header">
               <span className="lead mb-0">CUSTOMER - {name}</span>
@@ -274,42 +275,38 @@ function Detail(props) {
 
               <div className="row">
                 <div className="col">
-                  <div className="form-group">
-                    <label>地址</label>
-                    <input type="text" value={address_level1 || ''}
-                      className="form-control"
-                      onChange={event => setAddressLevel1(event.target.value)}
-                    />
-                  </div>
+                  <AddressLevel1Picker caption="地址" value={address_level1 || ''}
+                    onChange={event => {
+                      setAddressLevel1(event.target.value)
+                      setAddressLevel2('')
+                      setAddressLevel3('')
+                    }}
+                  />
                 </div>
 
                 <div className="col">
-                  <div className="form-group">
-                    <label>&nbsp;</label>
-                    <input type="text" value={address_level2 || ''}
-                      className="form-control"
-                      onChange={event => setAddressLevel2(event.target.value)}
+                  {address_level1 && (
+                    <AddressLevel2Picker value={address_level2 || ''} address_level1={address_level1 || ''}
+                      onChange={event => {
+                        setAddressLevel2(event.target.value)
+                        setAddressLevel3('')
+                      }}
                     />
-                  </div>
+                  )}
                 </div>
 
                 <div className="col">
-                  <div className="form-group">
-                    <label>&nbsp;</label>
-                    <input type="text" value={address_level3 || ''}
-                      className="form-control"
+                  {address_level2 && (
+                    <AddressLevel3Picker value={address_level3 || ''} address_level2={address_level2 || ''}
                       onChange={event => setAddressLevel3(event.target.value)}
                     />
-                  </div>
+                  )}
                 </div>
               </div>
 
-              <div className="form-group">
-                <input type="text" value={address_level4 || ''}
-                  className="form-control"
-                  onChange={event => setAddressLevel4(event.target.value)}
-                />
-              </div>
+              <AddressLevel4Picker value={address_level4 || ''}
+                onChange={event => setAddressLevel4(event.target.value)}
+              />
             </div>
 
             <div className="card-footer">
@@ -334,7 +331,7 @@ function Detail(props) {
         </div>
 
         {props.category === '编辑' && (
-          <div className="col">
+          <div className="offset-2 col-8 mt-4">
             <div className="card shadow">
               <div className="card-header">
                 <span className="lead mb-0">沟通记录</span>
