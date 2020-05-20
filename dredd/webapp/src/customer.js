@@ -53,93 +53,89 @@ function List() {
       <h1>CUSTOMER</h1>
       <hr />
 
-      <div className="row">
-        <div className="offset-2 col-8">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <a href="index.html">
-                  <i className="fa fa-fw fa-home"></i>
-                  HOME
-                </a>
-              </li>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <a href="index.html">
+              <i className="fa fa-fw fa-home"></i>
+              HOME
+            </a>
+          </li>
 
-              <li className="breadcrumb-item active" aria-current="page">
-                CUSTOMER
-              </li>
-            </ol>
-          </nav>
+          <li className="breadcrumb-item active" aria-current="page">
+            CUSTOMER
+          </li>
+        </ol>
+      </nav>
 
-          <div className="btn-group pull-right">
-            <button type="button" className="btn btn-outline-success btn-sm"
-              onClick={() => window.location = '#/新增'}
-            >
-              <i className="fa fa-fw fa-plus"></i>
-              新增
-            </button>
+      <div className="btn-group pull-right">
+        <button type="button" className="btn btn-outline-success btn-sm"
+          onClick={() => window.location = '#/新增'}
+        >
+          <i className="fa fa-fw fa-plus"></i>
+          新增
+        </button>
+      </div>
+
+      <div className="clearfix m-2"></div>
+
+      <div className="card shadow">
+        <div className="card-header">
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text">名称/电话</span>
+            </div>
+            <input type="text" name={filter_name || ''}
+              className="form-control"
+              onChange={event => setFilterName(event.target.value)}
+            />
           </div>
 
-          <div className="clearfix m-2"></div>
-
-          <div className="card shadow">
-            <div className="card-header">
-              <div className="input-group">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">名称/电话</span>
-                </div>
-                <input type="text" name={filter_name || ''}
-                  className="form-control"
-                  onChange={event => setFilterName(event.target.value)}
-                />
-              </div>
-
-              <div className="mt-2">
-                <div className="btn-group">
-                  <button type="button" className="btn btn-outline-secondary btn-sm"
-                    onClick={() => window.location.reload(true)}
-                  >
-                    <i className="fa fa-fw fa-refresh"></i>
-                    重置
-                  </button>
-                </div>
-
-                <div className="btn-group pull-right">
-                  <button type="button" className="btn btn-outline-info btn-sm"
-                    onClick={handleFilter}
-                  >
-                    <i className="fa fa-fw fa-search"></i>
-                    查询
-                  </button>
-                </div>
-              </div>
+          <div className="mt-2">
+            <div className="btn-group">
+              <button type="button" className="btn btn-outline-secondary btn-sm"
+                onClick={() => window.location.reload(true)}
+              >
+                <i className="fa fa-fw fa-refresh"></i>
+                重置
+              </button>
             </div>
 
-            <div className="card-body">
-              <div className="list-group">
-                {customer_list.map(it => (
-                  <a key={it.id} href={`#${it.id}`}
-                    className="list-group-item list-group-item-action"
-                  >
-                    <div className="d-flex w-100 justify-content-between">
-                      <h5 className="mb-1">
-                        {it.name}
-                      </h5>
-                      <small>
-                        电话：{it.tel}
-                      </small>
-                    </div>
-                    <ul className="list-inline mb-1">
-                      地址：
-                      <li className="list-inline-item">{it.address_level1}</li>
-                      <li className="list-inline-item">{it.address_level2}</li>
-                      <li className="list-inline-item">{it.address_level3}</li>
-                      <li className="list-inline-item">{it.address_level4}</li>
-                    </ul>
-                    <small>添加于：{moment(it.created_at).format('YYYY-MM-DD')}</small>
-                  </a>
-                ))}
-              </div>
+            <div className="btn-group pull-right">
+              <button type="button" className="btn btn-outline-info btn-sm"
+                onClick={handleFilter}
+              >
+                <i className="fa fa-fw fa-search"></i>
+                查询
+              </button>
             </div>
+          </div>
+        </div>
+
+        <div className="card-body">
+          <div className="list-group">
+            {customer_list.map(it => (
+              <a key={it.id} href={`#${it.id}`}
+                className="list-group-item list-group-item-action"
+              >
+                <div className="d-flex w-100 justify-content-between">
+                  <h5 className="mb-1">
+                    {it.name}
+                  </h5>
+                  <small>
+                    电话：{it.tel}
+                  </small>
+                </div>
+                <ul className="list-inline mb-1">
+                  地址：
+                  <li className="list-inline-item">{it.address_level1}</li>
+                  <li className="list-inline-item">{it.address_level2}</li>
+                  <li className="list-inline-item">{it.address_level3}</li>
+                  <li className="list-inline-item">{it.address_level4}</li>
+                </ul>
+                <small>添加于：{moment(it.created_at).format('YYYY-MM-DD')}</small>
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -220,138 +216,130 @@ function Detail(props) {
       <h1>CUSTOMER</h1>
       <hr />
 
-      <div className="row">
-        <div className="col-8 offset-2">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <a href="index.html">
-                  <i className="fa fa-fw fa-home"></i>
-                  HOME
-                </a>
-              </li>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <a href="index.html">
+              <i className="fa fa-fw fa-home"></i>
+              HOME
+            </a>
+          </li>
 
-              <li className="breadcrumb-item">
-                <a href="#/">
-                  CUSTOMER
-                </a>
-              </li>
+          <li className="breadcrumb-item">
+            <a href="#/">
+              CUSTOMER
+            </a>
+          </li>
 
-              <li className="breadcrumb-item active" aria-current="page">
-                {props.category}
-              </li>
-            </ol>
-          </nav>
+          <li className="breadcrumb-item active" aria-current="page">
+            {props.category}
+          </li>
+        </ol>
+      </nav>
+
+      <div className="card shadow">
+        <div className="card-header">
+          <span className="lead mb-0">CUSTOMER - {name}</span>
         </div>
 
-        <div className="offset-2 col-8">
-          <div className="card shadow">
-            <div className="card-header">
-              <span className="lead mb-0">CUSTOMER - {name}</span>
+        <div className="card-body">
+          <div className="row">
+            <div className="col">
+              <div className="form-group">
+                <label>名称</label>
+                <input type="text" value={name || ''} required
+                  className="form-control"
+                  onChange={event => setName(event.target.value)}
+                />
+              </div>
             </div>
 
-            <div className="card-body">
-              <div className="row">
-                <div className="col">
-                  <div className="form-group">
-                    <label>名称</label>
-                    <input type="text" value={name || ''} required
-                      className="form-control"
-                      onChange={event => setName(event.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="col-4">
-                  <div className="form-group">
-                    <label>电话</label>
-                    <input type="tel" value={tel || ''}
-                      className="form-control"
-                      onChange={event => setTel(event.target.value)}
-                    />
-                  </div>
-                </div>
+            <div className="col-4">
+              <div className="form-group">
+                <label>电话</label>
+                <input type="tel" value={tel || ''}
+                  className="form-control"
+                  onChange={event => setTel(event.target.value)}
+                />
               </div>
+            </div>
+          </div>
 
-              <div className="row">
-                <div className="col">
-                  <AddressLevel1Picker caption="地址" value={address_level1 || ''}
-                    onChange={event => {
-                      setAddressLevel1(event.target.value)
-                      setAddressLevel2('')
-                      setAddressLevel3('')
-                    }}
-                  />
-                </div>
-
-                <div className="col">
-                  {address_level1 && (
-                    <AddressLevel2Picker value={address_level2 || ''} address_level1={address_level1 || ''}
-                      onChange={event => {
-                        setAddressLevel2(event.target.value)
-                        setAddressLevel3('')
-                      }}
-                    />
-                  )}
-                </div>
-
-                <div className="col">
-                  {address_level2 && (
-                    <AddressLevel3Picker value={address_level3 || ''} address_level2={address_level2 || ''}
-                      onChange={event => setAddressLevel3(event.target.value)}
-                    />
-                  )}
-                </div>
-              </div>
-
-              <AddressLevel4Picker value={address_level4 || ''}
-                onChange={event => setAddressLevel4(event.target.value)}
+          <div className="row">
+            <div className="col">
+              <AddressLevel1Picker caption="地址" value={address_level1 || ''}
+                onChange={event => {
+                  setAddressLevel1(event.target.value)
+                  setAddressLevel2('')
+                  setAddressLevel3('')
+                }}
               />
             </div>
 
-            <div className="card-footer">
-              <div className="btn-group">
-                <button type="button" className="btn btn-outline-secondary"
-                  onClick={() => window.history.go(-1)}
-                >
-                  返回
-                </button>
-              </div>
+            <div className="col">
+              {address_level1 && (
+                <AddressLevel2Picker value={address_level2 || ''} address_level1={address_level1 || ''}
+                  onChange={event => {
+                    setAddressLevel2(event.target.value)
+                    setAddressLevel3('')
+                  }}
+                />
+              )}
+            </div>
 
-              <div className="btn-group pull-right">
-                <button type="button" className="btn btn-primary"
-                  onClick={handleSave}
-                >
-                  <i className="fa fa-fw fa-save"></i>
-                  保存
-                </button>
-              </div>
+            <div className="col">
+              {address_level2 && (
+                <AddressLevel3Picker value={address_level3 || ''} address_level2={address_level2 || ''}
+                  onChange={event => setAddressLevel3(event.target.value)}
+                />
+              )}
             </div>
           </div>
+
+          <AddressLevel4Picker value={address_level4 || ''}
+            onChange={event => setAddressLevel4(event.target.value)}
+          />
         </div>
 
-        {props.category === '编辑' && (
-          <div className="offset-2 col-8 mt-4">
-            <div className="card shadow">
-              <div className="card-header">
-                <span className="lead mb-0">沟通记录</span>
-                <div className="btn-group pull-right">
-                  <button type="button" className="btn btn-outline-success btn-sm"
-                    onClick={() => window.location = `customer-journal.html#/新增?customer_id=${customer_id}`}
-                  >
-                    <i className="fa fa-fw fa-plus"></i>
-                    沟通记录
-                  </button>
-                </div>
-              </div>
-              
-              <div className="card-body">
-                <CustomerJournalList customer_id={customer_id} />
-              </div>
+        <div className="card-footer">
+          <div className="btn-group">
+            <button type="button" className="btn btn-outline-secondary"
+              onClick={() => window.history.go(-1)}
+            >
+              返回
+            </button>
+          </div>
+
+          <div className="btn-group pull-right">
+            <button type="button" className="btn btn-primary"
+              onClick={handleSave}
+            >
+              <i className="fa fa-fw fa-save"></i>
+              保存
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {props.category === '编辑' && (
+        <div className="card shadow mt-4">
+          <div className="card-header">
+            <span className="lead mb-0">沟通记录</span>
+            <div className="btn-group pull-right">
+              <button type="button" className="btn btn-outline-success btn-sm"
+                onClick={() => window.location = `customer-journal.html#/新增?customer_id=${customer_id}`}
+              >
+                <i className="fa fa-fw fa-plus"></i>
+                沟通记录
+              </button>
             </div>
           </div>
-        )}
-      </div>
+          
+          <div className="card-body">
+            <CustomerJournalList customer_id={customer_id} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

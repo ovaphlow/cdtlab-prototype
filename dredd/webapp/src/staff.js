@@ -32,45 +32,41 @@ function List() {
       <h1>STAFF</h1>
       <hr />
 
-      <div className="row">
-        <div className="col-8 offset-2">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <a href="index.html">
-                  <i className="fa fa-fw fa-home"></i>
-                  HOME
-                </a>
-              </li>
-              <li className="breadcrumb-item active" aria-current="page">
-                STAFF
-              </li>
-            </ol>
-          </nav>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <a href="index.html">
+              <i className="fa fa-fw fa-home"></i>
+              HOME
+            </a>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            STAFF
+          </li>
+        </ol>
+      </nav>
 
-          <div className="card shadow">
-            <div className="card-body">
-              <div className="list-group">
-                {staff_list.map(it => (
-                  <a key={it.id} href={`#${it.id}?uuid=${it.uuid}`}
-                    className="list-group-item list-group-item-action"
-                  >
-                    <div className="d-flex w-100 justify-content-between">
-                      <h5 className="mb-1">
-                        {it.certified === false && (
-                          <>
-                            <span className="badge badge-danger">未认证</span>
-                            &nbsp;
-                          </>
-                        )}
-                        {it.name}
-                      </h5>
-                      <small>{it.email}</small>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
+      <div className="card shadow">
+        <div className="card-body">
+          <div className="list-group">
+            {staff_list.map(it => (
+              <a key={it.id} href={`#${it.id}?uuid=${it.uuid}`}
+                className="list-group-item list-group-item-action"
+              >
+                <div className="d-flex w-100 justify-content-between">
+                  <h5 className="mb-1">
+                    {it.certified === false && (
+                      <>
+                        <span className="badge badge-danger">未认证</span>
+                        &nbsp;
+                      </>
+                    )}
+                    {it.name}
+                  </h5>
+                  <small>{it.email}</small>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -83,6 +79,7 @@ function Detail(props) {
   const location = useLocation()
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
+  const [tel, setTel] = useState('')
   const [certified, setCertified] = useState('0')
 
   const handleSave = async () => {
@@ -142,47 +139,59 @@ function Detail(props) {
       <h1>STAFF</h1>
       <hr />
 
-      <div className="row">
-        <div className="col-8 offset-2">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <a href="index.html">
-                  <i className="fa fa-fw fa-home"></i>
-                  HOME
-                </a>
-              </li>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <a href="index.html">
+              <i className="fa fa-fw fa-home"></i>
+              HOME
+            </a>
+          </li>
 
-              <li className="breadcrumb-item active" aria-current="page">
-                <a href="#/">
-                  STAFF
-                </a>
-              </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            <a href="#/">
+              STAFF
+            </a>
+          </li>
 
-              <li className="breadcrumb-item active" aria-current="page">
-                {props.category}
-              </li>
-            </ol>
-          </nav>
+          <li className="breadcrumb-item active" aria-current="page">
+            {props.category}
+          </li>
+        </ol>
+      </nav>
 
-          <div className="card shadow">
-            <div className="card-body">
-              <div className="form-group">
-                <label>EMAIL</label>
-                <input type="email" value={email || ''} autoComplete="email"
-                  className="form-control"
-                  onChange={event => setEmail(event.target.value)}
-                />
-              </div>
+      <div className="card shadow">
+        <div className="card-body">
+          <div className="form-group">
+            <label>EMAIL</label>
+            <input type="email" value={email || ''} autoComplete="email"
+              className="form-control"
+              onChange={event => setEmail(event.target.value)}
+            />
+          </div>
 
+          <div className="row">
+            <div className="col">
               <div className="form-group">
                 <label>姓名</label>
-                <input type="text" value={name || ''} autoComplete="name"
+                <input type="text" value={name || ''}
                   className="form-control"
                   onChange={event => setName(event.target.value)}
                 />
               </div>
+            </div>
 
+            <div className="col">
+              <div className="form-group">
+                <label>电话<span className="text-danger">(未实现)</span></label>
+                <input type="tel" value={tel || ''}
+                  className="form-control"
+                  onChange={event => setTel(event.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="col">
               <div className="form-group">
                 <label>认证</label>
                 <select value={certified ? '1' : '0'} className="form-control"
@@ -193,35 +202,35 @@ function Detail(props) {
                 </select>
               </div>
             </div>
-            
-            <div className="card-footer">
-              <div className="btn-group">
-                <button type="button" className="btn btn-outline-secondary"
-                  onClick={() => window.history.go(-1)}
-                >
-                  返回
-                </button>
-              </div>
+          </div>
+        </div>
+        
+        <div className="card-footer">
+          <div className="btn-group">
+            <button type="button" className="btn btn-outline-secondary"
+              onClick={() => window.history.go(-1)}
+            >
+              返回
+            </button>
+          </div>
 
-              <div className="btn-group pull-right">
-                <button type="button" className="btn btn-outline-danger"
-                  onClick={handleRemove}
-                >
-                  <i className="fa fa-fw fa-trash-o"></i>
-                  删除
-                </button>
+          <div className="btn-group pull-right">
+            <button type="button" className="btn btn-outline-danger"
+              onClick={handleRemove}
+            >
+              <i className="fa fa-fw fa-trash-o"></i>
+              删除
+            </button>
 
-                <button type="button" className="btn btn-primary"
-                  onClick={handleSave}
-                >
-                  <i className="fa fa-fw fa-save"></i>
-                  保存
-                </button>
-              </div>
+            <button type="button" className="btn btn-primary"
+              onClick={handleSave}
+            >
+              <i className="fa fa-fw fa-save"></i>
+              保存
+            </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
   )
 }
