@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 function Index() {
   return (
     <div className="container">
-      <h1>首页</h1>
+      <h1><em>DREDD</em></h1>
       <hr />
 
       <div className="row justify-content-md-center">
