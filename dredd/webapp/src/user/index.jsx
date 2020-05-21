@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 import SignUp from './SignUp';
-import { SignIn } from './user';
+import SignIn from './SignIn';
 
 ReactDOM.render(<Index />, document.getElementById('app'));
 

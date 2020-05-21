@@ -20,6 +20,7 @@ module.exports = {
   },
   plugins: [
     'react',
+    'react-hooks',
   ],
   rules: {
     // 'semi': 0
@@ -27,6 +28,8 @@ module.exports = {
     "no-alert": 0,
     "no-unused-expressions": [1, {
       "allowShortCircuit": true
-    }]
+    }],
+    "camelcase": 0,
+    "react/prop-types": 0,
   },
 };

@@ -1,27 +1,23 @@
-import React, { useState } from 'react';
-import { v5 as uuidv5 } from 'uuid';
+import React, { useEffect, useState } from 'react';
 import md5 from 'blueimp-md5';
 
-export default function SignUp() {
+export default function SignIn() {
   const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSignUp = async () => {
-    if (!email || !name || !password) {
+  const handleSignIn = async () => {
+    if (!email || !password) {
       window.alert('请完整填写所需信息');
       return;
     }
 
     const data = {
-      uuid: uuidv5(`${email} ${name}`, uuidv5.DNS),
       email,
-      name,
       password: md5(password),
     };
 
-    let res = await window.fetch('/api/user/sign-up', {
-      method: 'POST',
+    let res = await window.fetch('/api/user/sign-in', {
+      method: 'PUT',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(data),
     });
@@ -30,13 +26,18 @@ export default function SignUp() {
       window.alert(res.message);
       return;
     }
-    window.alert('数据已提交至服务器，请等待管理员审核。');
-    window.history.go(-1);
+    res.content.certified && window.alert('当前登录的用户还没有通过认证。');
+    window.sessionStorage.setItem('auth', JSON.stringify(res.content));
+    window.location = 'index.html';
   };
+
+  useEffect(() => {
+    window.sessionStorage.removeItem('auth');
+  }, []);
 
   return (
     <div className="container">
-      <h1>STAFF - SIGN UP</h1>
+      <h1>STAFF - SIGN IN</h1>
       <hr />
 
       <div className="row justify-content-md-center">
@@ -69,19 +70,6 @@ export default function SignUp() {
                 </div>
 
                 <div className="form-group">
-                  <label>姓名</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={name || ''}
-                    autoComplete="name"
-                    required
-                    className="form-control"
-                    onChange={(event) => setName(event.target.value)}
-                  />
-                </div>
-
-                <div className="form-group">
                   <label>密码</label>
                   <input
                     type="password"
@@ -99,10 +87,10 @@ export default function SignUp() {
               <button
                 type="button"
                 className="btn btn-primary btn-block"
-                onClick={handleSignUp}
+                onClick={handleSignIn}
               >
-                <i className="fa fa-fw fa-user-plus" />
-                注册
+                <i className="fa fa-fw fa-sign-in" />
+                登录
               </button>
             </div>
           </div>
