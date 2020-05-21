@@ -6,7 +6,6 @@
   "scripts": {
     "watch": "parcel watch public/**/*.html",
     "start": "parcel public/**/*.html",
-    "lint": "npx eslint src/**/*.js",
     "build": "parcel build public/**/*.html"
   },
   "keywords": [],
