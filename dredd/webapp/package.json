@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "parcel watch public/**/*.html",
     "start": "parcel public/**/*.html",
+    "lint": "npx eslint src/**/*.js",
     "build": "parcel build public/**/*.html"
   },
   "keywords": [],
@@ -15,6 +16,12 @@
     "@babel/core": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
     "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
