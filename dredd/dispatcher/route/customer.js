@@ -1,38 +1,39 @@
-const Router = require('@koa/router')
+const Router = require('@koa/router');
 
-const postgres = require('../postgres')
+const logger = require('../logger');
+const postgres = require('../postgres');
 
 const router = new Router({
-  prefix: '/api/customer'
-})
+  prefix: '/api/customer',
+});
 
-module.exports = router
+module.exports = router;
 
-router.get('/:id', async ctx => {
-  const cnx = await postgres.connect()
+router.get('/:id', async (ctx) => {
+  const cnx = await postgres.connect();
   try {
     const sql = `
       select * from dredd.customer where id = $1 limit 1
-    `
-    const result = await cnx.query(sql, [parseInt(ctx.params.id)])
-    ctx.response.body = { message: '', content: result.rowCount === 1 ? result.rows[0] : {} }
+    `;
+    const result = await cnx.query(sql, [parseInt(ctx.params.id, 10)]);
+    ctx.response.body = { message: '', content: result.rowCount === 1 ? result.rows[0] : {} };
   } catch (err) {
-    console.error(err)
-    ctx.response.body = {message: '服务器错误', content: '' }
+    logger.error(err);
+    ctx.response.body = { message: '服务器错误', content: '' };
   } finally {
-    cnx.release()
+    cnx.release();
   }
-})
+});
 
-router.put('/:id', async ctx => {
-  const cnx = await postgres.connect()
+router.put('/:id', async (ctx) => {
+  const cnx = await postgres.connect();
   try {
     const sql = `
       update dredd.customer
       set uuid = $1, name = $2, tel = $3,
         address_level1 = $4, address_level2 = $5, address_level3 = $6, address_level4 = $7
       where id = $8
-    `
+    `;
     const result = await cnx.query(sql, [
       ctx.request.body.uuid,
       ctx.request.body.name,
@@ -41,36 +42,35 @@ router.put('/:id', async ctx => {
       ctx.request.body.address_level2,
       ctx.request.body.address_level3,
       ctx.request.body.address_level4,
-
-      parseInt(ctx.params.id)
-    ])
-    ctx.response.body = { message: '', content: result }
+      parseInt(ctx.params.id, 10),
+    ]);
+    ctx.response.body = { message: '', content: result };
   } catch (err) {
-    console.error(err)
-    ctx.response.body = { message: '服务器错误', content: '' }
+    logger.error(err);
+    ctx.response.body = { message: '服务器错误', content: '' };
   } finally {
-    cnx.release()
+    cnx.release();
   }
-})
+});
 
-router.get('/', async ctx => {
-  const cnx = await postgres.connect()
+router.get('/', async (ctx) => {
+  const cnx = await postgres.connect();
   try {
     const sql = `
       select * from dredd.customer order by id desc
-    `
-    const result = await cnx.query(sql)
-    ctx.response.body = { message: '', content: result.rows }
+    `;
+    const result = await cnx.query(sql);
+    ctx.response.body = { message: '', content: result.rows };
   } catch (err) {
-    console.error(err)
-    ctx.response.body = { message: '服务器错误', content: '' }
+    logger.error(err);
+    ctx.response.body = { message: '服务器错误', content: '' };
   } finally {
-    cnx.release()
+    cnx.release();
   }
-})
+});
 
-router.post('/', async ctx => {
-  const cnx = await postgres.connect()
+router.post('/', async (ctx) => {
+  const cnx = await postgres.connect();
   try {
     const sql = `
       insert into
@@ -81,7 +81,7 @@ router.post('/', async ctx => {
           $4, $5, $6, $7,
           current_timestamp)
       returning id
-    `
+    `;
     const result = await cnx.query(sql, [
       ctx.request.body.uuid,
       ctx.request.body.name,
@@ -89,35 +89,35 @@ router.post('/', async ctx => {
       ctx.request.body.address_level1,
       ctx.request.body.address_level2,
       ctx.request.body.address_level3,
-      ctx.request.body.address_level4
-    ])
-    ctx.response.body = { message: '', content: result.rows[0] }
+      ctx.request.body.address_level4,
+    ]);
+    ctx.response.body = { message: '', content: result.rows[0] };
   } catch (err) {
-    console.error(err.stack)
-    ctx.response.body = { message: '服务器错误' }
+    logger.error(err.stack);
+    ctx.response.body = { message: '服务器错误' };
   } finally {
-    cnx.release()
+    cnx.release();
   }
-})
+});
 
-router.put('/', async ctx => {
-  const cnx = await postgres.connect()
+router.put('/', async (ctx) => {
+  const cnx = await postgres.connect();
   try {
     const sql = `
       select *
       from dredd.customer
       where position($1 in name) > 0
         or position($2 in tel) > 0
-    `
+    `;
     const result = await cnx.query(sql, [
       ctx.request.body.filter_name,
-      ctx.request.body.filter_name
-    ])
-    ctx.response.body = { message: '', content: result.rows }
+      ctx.request.body.filter_name,
+    ]);
+    ctx.response.body = { message: '', content: result.rows };
   } catch (err) {
-    console.error(err)
-    ctx.response.body = { message: '服务器错误', content: '' }
+    logger.error(err);
+    ctx.response.body = { message: '服务器错误', content: '' };
   } finally {
-    cnx.release()
+    cnx.release();
   }
-})
+});
