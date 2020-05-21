@@ -52,7 +52,9 @@ export default function List() {
         <button
           type="button"
           className="btn btn-outline-success btn-sm"
-          onClick={() => window.location = '#/新增'}
+          onClick={() => {
+            window.location = '#/新增';
+          }}
         >
           <i className="fa fa-fw fa-plus" />
           新增

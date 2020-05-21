@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { v5 as uuidv5 } from 'uuid';
 
-import { ListComponent as CustomerJournalList } from '../customer-journal';
+import { ListComponent as CustomerJournalList } from '../customer-journal/Component';
 import {
   AddressLevel1Picker, AddressLevel2Picker, AddressLevel3Picker, AddressLevel4Picker,
 } from '../Component';
