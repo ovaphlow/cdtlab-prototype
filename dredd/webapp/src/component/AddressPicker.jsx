@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { address } from './address';
+import { address } from '../address';
 
 function useKeys() {
   return Object.keys(address);

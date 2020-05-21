@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 
-export function ListComponent(props) {
+export default function CustomerJournalList(props) {
   const [customer_journal_list, setCustomerJournalList] = useState([]);
 
   useEffect(() => {

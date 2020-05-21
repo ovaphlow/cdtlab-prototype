@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { v5 as uuidv5 } from 'uuid';
 
-import { ListComponent as CustomerJournalList } from '../customer-journal/Component';
+import CustomerJournalList from '../customer-journal/component/List';
 import {
   AddressLevel1Picker, AddressLevel2Picker, AddressLevel3Picker, AddressLevel4Picker,
-} from '../Component';
+} from '../component/AddressPicker';
 
 export default function Detail(props) {
   const { category } = props;
