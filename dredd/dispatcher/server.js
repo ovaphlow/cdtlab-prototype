@@ -1,19 +1,21 @@
 const cluster = require('cluster');
 const http = require('http');
+const os = require('os');
 
 const app = require('./app');
-const config = require('./config');
 const logger = require('./logger');
+
+const port = 8900;
 
 if (cluster.isMaster) {
   logger.log(`${new Date()} 主进程 PID:${process.pid}`);
 
-  for (let i = 0; i < config.app.numChildProcesses; i += 1) {
+  for (let i = 0; i < os.cpus().length; i += 1) {
     cluster.fork();
   }
 
   cluster.on('online', (worker) => {
-    logger.log(`${new Date()} 子进程 PID:${worker.process.pid}, 端口:${config.app.port}`);
+    logger.log(`${new Date()} 子进程 PID:${worker.process.pid}, 端口:${port}`);
   });
 
   cluster.on('exit', (worker, code, signal) => {
@@ -22,5 +24,5 @@ if (cluster.isMaster) {
     cluster.fork();
   });
 } else {
-  http.createServer(app.callback()).listen(config.app.port);
+  http.createServer(app.callback()).listen(port);
 }

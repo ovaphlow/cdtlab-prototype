@@ -1,18 +1,18 @@
-const { Pool } = require('pg')
+const { Pool } = require('pg');
 
-const config = require('./config')
+const logger = require('./logger');
 
 const pool = new Pool({
-  user: config.postgres.user,
-  password: config.postgres.password,
-  host: config.postgres.host,
-  port: config.postgres.port,
-  database: config.postgres.database
-})
+  user: 'hengda',
+  password: 'srd@HD.1123',
+  host: '192.168.1.246',
+  port: 5432,
+  database: 'ovaphlow',
+});
 
 pool.on('error', (err, client) => {
-  console.error(err)
-  process.exit(-1)
-})
+  logger.error(err, client);
+  process.exit(-1);
+});
 
-module.exports = pool
+module.exports = pool;

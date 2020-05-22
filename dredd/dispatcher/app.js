@@ -4,7 +4,6 @@ const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const staticCache = require('koa-static-cache');
 
-const config = require('./config');
 const logger = require('./logger');
 const customerRouter = require('./route/customer');
 const customerJournalRouter = require('./route/customer-journal');
@@ -13,7 +12,9 @@ const userRouter = require('./route/user');
 
 const app = new Koa();
 
-app.env = config.env;
+// salt: '89ufjio239oikwef8023r90i',
+
+app.env = 'production';
 
 app.use(staticCache(path.join(__dirname, '../webapp/dist'), {
   maxAge: 60 * 60 * 24 * 7,
