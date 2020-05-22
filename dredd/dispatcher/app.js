@@ -5,10 +5,11 @@ const bodyParser = require('koa-bodyparser');
 const staticCache = require('koa-static-cache');
 
 const logger = require('./logger');
-const customerRouter = require('./route/customer');
-const customerJournalRouter = require('./route/customer-journal');
-const staffRouter = require('./route/staff');
-const userRouter = require('./route/user');
+const routerCustomer = require('./route/customer');
+const routerCustomerJournal = require('./route/customer-journal');
+const routerCustomerPayment = require('./route/customer-payment');
+const routerStaff = require('./route/staff');
+const routerUser = require('./route/user');
 
 const app = new Koa();
 
@@ -43,23 +44,28 @@ app.on('error', (err, ctx) => {
 });
 
 (() => {
-  app.use(customerRouter.routes());
-  app.use(customerRouter.allowedMethods());
+  app.use(routerCustomer.routes());
+  app.use(routerCustomer.allowedMethods());
 })();
 
 (() => {
-  app.use(customerJournalRouter.routes());
-  app.use(customerJournalRouter.allowedMethods());
+  app.use(routerCustomerJournal.routes());
+  app.use(routerCustomerJournal.allowedMethods());
 })();
 
 (() => {
-  app.use(userRouter.routes());
-  app.use(userRouter.allowedMethods());
+  app.use(routerCustomerPayment.routes());
+  app.use(routerCustomerPayment.allowedMethods());
 })();
 
 (() => {
-  app.use(staffRouter.routes());
-  app.use(staffRouter.allowedMethods());
+  app.use(routerUser.routes());
+  app.use(routerUser.allowedMethods());
+})();
+
+(() => {
+  app.use(routerStaff.routes());
+  app.use(routerStaff.allowedMethods());
 })();
 
 module.exports = app;

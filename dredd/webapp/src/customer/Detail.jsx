@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { v5 as uuidv5 } from 'uuid';
 
-import CustomerJournalList from '../customer-journal/component/List';
+import JournalList from '../customer-journal/component/List';
+import PaymentList from '../customer-payment/component/List';
 import {
   AddressLevel1Picker, AddressLevel2Picker, AddressLevel3Picker, AddressLevel4Picker,
 } from '../component/AddressPicker';
@@ -33,7 +34,7 @@ export default function Detail(props) {
       address_level4,
     };
 
-    if (props.category === '新增') {
+    if (category === '新增') {
       let res = await window.fetch('/api/customer/', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -45,7 +46,7 @@ export default function Detail(props) {
         return;
       }
       window.history.go(-1);
-    } else if (props.category === '编辑') {
+    } else if (category === '编辑') {
       let res = await window.fetch(`/api/customer/${customer_id}`, {
         method: 'PUT',
         headers: { 'content-type': 'application/json' },
@@ -224,7 +225,27 @@ export default function Detail(props) {
           </div>
 
           <div className="card-body">
-            <CustomerJournalList customer_id={customer_id} />
+            <JournalList customer_id={customer_id} />
+          </div>
+        </div>
+      )}
+
+      {category === '编辑' && (
+        <div className="card shadow mt-4">
+          <div className="card-header">
+            <span className="lead mb-0">付款记录</span>
+            <div className="btn-group pull-right">
+              <button type="button" className="btn btn-outline-success btn-sm"
+                onClick={() => { window.location = `customer-payment.html#/新增?customer_id=${customer_id}`; }}
+              >
+                <i className="fa fa-fw fa-plus"></i>
+                付款记录
+              </button>
+            </div>
+          </div>
+
+          <div className="card-body">
+            <PaymentList customer_id={customer_id} />
           </div>
         </div>
       )}

@@ -61,7 +61,7 @@ router.get('/', async (ctx) => {
       from dredd.customer_journal
       where customer_id = $1
       order by id desc
-      limit 10
+      limit 6
     `;
     const result = await cnx.query(sql, [
       parseInt(ctx.request.query.customer_id || 0, 10),
