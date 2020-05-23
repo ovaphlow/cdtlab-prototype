@@ -31,7 +31,6 @@ router.get('/:id', async (ctx) => {
 });
 
 router.put('/:id', async (ctx) => {
-  logger.info(ctx.request.body);
   const cnx = await postgres.connect();
   try {
     const sql = `
