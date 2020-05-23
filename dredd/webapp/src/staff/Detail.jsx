@@ -58,7 +58,7 @@ export default function Detail({ category }) {
         setEmail(res.content.email);
         setName(res.content.name);
         setTel(res.content.tel);
-        setCertified(res.content.certified ? '1' : '0');
+        setCertified(res.content.certified);
       })();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
