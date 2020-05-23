@@ -52,7 +52,7 @@ export default function SignUp() {
 
       <div className="row">
         <div className="col-lg-4 offset-lg-4 col-6 offset-3">
-          <div className="card shadow">
+          <div className="card bg-dark shadow">
             <div className="card-body">
               <form>
                 <div className="form-group">
@@ -62,7 +62,6 @@ export default function SignUp() {
                     name="email"
                     value={email || ''}
                     autoComplete="email"
-                    required
                     className="form-control"
                     onChange={(event) => setEmail(event.target.value)}
                   />
@@ -75,7 +74,6 @@ export default function SignUp() {
                     name="name"
                     value={name || ''}
                     autoComplete="name"
-                    required
                     className="form-control"
                     onChange={(event) => setName(event.target.value)}
                   />
@@ -87,7 +85,6 @@ export default function SignUp() {
                     type="password"
                     value={password || ''}
                     autoComplete="current-password"
-                    required
                     className="form-control"
                     onChange={(event) => setPassword(event.target.value)}
                   />

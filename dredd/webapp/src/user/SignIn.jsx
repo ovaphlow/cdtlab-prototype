@@ -53,7 +53,7 @@ export default function SignIn() {
 
       <div className="row">
         <div className="col-lg-4 offset-lg-4 col-6 offset-3">
-          <div className="card shadow">
+          <div className="card bg-dark shadow">
             <div className="card-body">
               <form>
                 <div className="form-group">

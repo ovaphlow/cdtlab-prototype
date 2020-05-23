@@ -13,7 +13,7 @@ router.get('/:id', async (ctx) => {
   const cnx = await postgres.connect();
   try {
     const sql = `
-      select id, uuid, email, name, certified
+      select id, uuid, email, name, certified, tel
       from dredd.staff
       where id = $1 and uuid = $2
     `;
@@ -31,17 +31,19 @@ router.get('/:id', async (ctx) => {
 });
 
 router.put('/:id', async (ctx) => {
+  logger.info(ctx.request.body);
   const cnx = await postgres.connect();
   try {
     const sql = `
       update dredd.staff
-      set email = $1, name = $2, certified = $3
-      where id = $4 and uuid = $5
+      set email = $1, name = $2, certified = $3, tel = $4
+      where id = $5 and uuid = $6
     `;
     const result = await cnx.query(sql, [
       ctx.request.body.email,
       ctx.request.body.name,
       ctx.request.body.certified,
+      ctx.request.body.tel,
       parseInt(ctx.params.id, 10),
       ctx.request.query.uuid,
     ]);
@@ -77,7 +79,7 @@ router.get('/', async (ctx) => {
   const cnx = await postgres.connect();
   try {
     const sql = `
-      select id, uuid, email, name, certified
+      select id, uuid, email, name, certified, tel
       from dredd.staff
       order by id desc
     `;

@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import {
-  useParams, useLocation,
-} from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function Detail(props) {
-  const { category } = props;
+export default function Detail({ category }) {
   const { staff_id } = useParams();
   const location = useLocation();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [tel, setTel] = useState('');
-  const [certified, setCertified] = useState('0');
+  const [certified, setCertified] = useState(false);
 
   const handleSave = async () => {
     if (!email || !name) {
@@ -21,7 +19,8 @@ export default function Detail(props) {
     const data = {
       email,
       name,
-      certified: certified === '1',
+      certified,
+      tel,
     };
 
     let res = await window.fetch(`/api/staff/${staff_id}?uuid=${new URLSearchParams(location.search).get('uuid')}`, {
@@ -53,13 +52,14 @@ export default function Detail(props) {
 
   useEffect(() => {
     if (category === '编辑') {
-      (async (id, uuid) => {
-        let res = await window.fetch(`/api/staff/${id}?uuid=${uuid}`);
+      (async () => {
+        let res = await window.fetch(`/api/staff/${staff_id}?uuid=${new URLSearchParams(location.search).get('uuid')}`);
         res = await res.json();
         setEmail(res.content.email);
         setName(res.content.name);
+        setTel(res.content.tel);
         setCertified(res.content.certified ? '1' : '0');
-      })(staff_id, new URLSearchParams(location.search).get('uuid'));
+      })();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -90,14 +90,13 @@ export default function Detail(props) {
         </ol>
       </nav>
 
-      <div className="card shadow">
+      <div className="card bg-dark shadow">
         <div className="card-body">
           <div className="form-group">
             <label>EMAIL</label>
             <input
               type="email"
               value={email || ''}
-              autoComplete="email"
               className="form-control"
               onChange={(event) => setEmail(event.target.value)}
             />
@@ -118,10 +117,7 @@ export default function Detail(props) {
 
             <div className="col">
               <div className="form-group">
-                <label>
-                  电话
-                  <span className="text-danger">(未实现)</span>
-                </label>
+                <label>电话</label>
                 <input
                   type="tel"
                   value={tel || ''}
@@ -135,9 +131,9 @@ export default function Detail(props) {
               <div className="form-group">
                 <label>认证</label>
                 <select
-                  value={certified ? '1' : '0'}
+                  value={certified === true ? '1' : '0'}
                   className="form-control"
-                  onChange={(event) => setCertified(event.target.value)}
+                  onChange={(event) => setCertified(event.target.value === '1')}
                 >
                   <option value="0">否</option>
                   <option value="1">是</option>
@@ -151,7 +147,7 @@ export default function Detail(props) {
           <div className="btn-group">
             <button
               type="button"
-              className="btn btn-outline-secondary"
+              className="btn btn-secondary"
               onClick={() => window.history.go(-1)}
             >
               返回
@@ -161,10 +157,10 @@ export default function Detail(props) {
           <div className="btn-group pull-right">
             <button
               type="button"
-              className="btn btn-outline-danger"
+              className="btn btn-danger"
               onClick={handleRemove}
             >
-              <i className="fa fa-fw fa-trash-o" />
+              <i className="fa fa-fw fa-trash" />
               删除
             </button>
 
@@ -182,3 +178,7 @@ export default function Detail(props) {
     </div>
   );
 }
+
+Detail.propTypes = {
+  category: PropTypes.string.isRequired,
+};

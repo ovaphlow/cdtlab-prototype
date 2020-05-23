@@ -30,30 +30,44 @@ export default function List() {
         </ol>
       </nav>
 
-      <div className="card shadow">
+      <div className="card bg-dark shadow">
         <div className="card-body">
-          <div className="list-group">
-            {staff_list.map((it) => (
-              <a
-                key={it.id}
-                href={`#${it.id}?uuid=${it.uuid}`}
-                className="list-group-item list-group-item-action"
-              >
-                <div className="d-flex w-100 justify-content-between">
-                  <h5 className="mb-1">
-                    {it.certified === false && (
-                      <>
-                        <span className="badge badge-danger">未认证</span>
-                        &nbsp;
-                      </>
+          <table className="table table-dark table-bordered table-hover table-striped">
+            <thead>
+              <tr>
+                <th className="text-right">序号</th>
+                <th>状态</th>
+                <th>姓名</th>
+                <th>EMAIL</th>
+                <th>电话</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {staff_list.map((it) => (
+                <tr key={it.id}>
+                  <td className="text-right">
+                    <span className="pull-left">
+                      <a href={`#/${it.id}?uuid=${it.uuid}`}>
+                        <i className="fa fa-fw fa-edit" />
+                      </a>
+                    </span>
+                    {it.id}
+                  </td>
+                  <td>
+                    {it.certified === true ? (
+                      <span className="badge badge-success">已认证</span>
+                    ) : (
+                      <span className="badge badge-danger">未认证</span>
                     )}
-                    {it.name}
-                  </h5>
-                  <small>{it.email}</small>
-                </div>
-              </a>
-            ))}
-          </div>
+                  </td>
+                  <td>{it.name}</td>
+                  <td>{it.email}</td>
+                  <td>{it.tel}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

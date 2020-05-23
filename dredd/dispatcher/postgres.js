@@ -2,10 +2,18 @@ const { Pool } = require('pg');
 
 const logger = require('./logger');
 
+// const pool = new Pool({
+//   user: 'hengda',
+//   password: 'srd@HD.1123',
+//   host: '192.168.1.246',
+//   port: 5432,
+//   database: 'ovaphlow',
+// });
+
 const pool = new Pool({
-  user: 'hengda',
-  password: 'srd@HD.1123',
-  host: '192.168.1.246',
+  user: 'ovaphlow',
+  password: '',
+  host: '127.0.0.1',
   port: 5432,
   database: 'ovaphlow',
 });
