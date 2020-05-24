@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { v5 as uuidv5 } from 'uuid';
 
 import JournalList from '../customer-journal/component/List';
@@ -8,8 +9,7 @@ import {
   AddressLevel1Picker, AddressLevel2Picker, AddressLevel3Picker, AddressLevel4Picker,
 } from '../component/AddressPicker';
 
-export default function Detail(props) {
-  const { category } = props;
+export default function Detail({ category }) {
   const { customer_id } = useParams();
   const [name, setName] = useState('');
   const [tel, setTel] = useState('');
@@ -62,9 +62,9 @@ export default function Detail(props) {
   };
 
   useEffect(() => {
-    if (props.category === '编辑') {
-      (async (id) => {
-        let res = await window.fetch(`/api/customer/${id}`);
+    if (category === '编辑') {
+      (async () => {
+        let res = await window.fetch(`/api/customer/${customer_id}`);
         res = await res.json();
         setName(res.content.name);
         setTel(res.content.tel);
@@ -72,7 +72,7 @@ export default function Detail(props) {
         setAddressLevel2(res.content.address_level2);
         setAddressLevel3(res.content.address_level3);
         setAddressLevel4(res.content.address_level4);
-      })(customer_id);
+      })();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -103,7 +103,7 @@ export default function Detail(props) {
         </ol>
       </nav>
 
-      <div className="card shadow">
+      <div className="card bg-dark shadow">
         <div className="card-header">
           <span className="lead mb-0">
             CUSTOMER -
@@ -184,11 +184,7 @@ export default function Detail(props) {
 
         <div className="card-footer">
           <div className="btn-group">
-            <button
-              type="button"
-              className="btn btn-outline-secondary"
-              onClick={() => window.history.go(-1)}
-            >
+            <button type="button" className="btn btn-secondary" onClick={() => { window.history.go(-1); }}>
               返回
             </button>
           </div>
@@ -207,16 +203,14 @@ export default function Detail(props) {
       </div>
 
       {category === '编辑' && (
-        <div className="card shadow mt-4">
+        <div className="card bg-dark shadow mt-4">
           <div className="card-header">
             <span className="lead mb-0">沟通记录</span>
             <div className="btn-group pull-right">
               <button
                 type="button"
-                className="btn btn-outline-success btn-sm"
-                onClick={() => {
-                  window.location = `customer-journal.html#/新增?customer_id=${customer_id}`;
-                }}
+                className="btn btn-success btn-sm"
+                onClick={() => { window.location = `customer-journal.html#/新增?customer_id=${customer_id}`; }}
               >
                 <i className="fa fa-fw fa-plus" />
                 沟通记录
@@ -231,14 +225,16 @@ export default function Detail(props) {
       )}
 
       {category === '编辑' && (
-        <div className="card shadow mt-4">
+        <div className="card bg-dark shadow mt-4">
           <div className="card-header">
             <span className="lead mb-0">付款记录</span>
             <div className="btn-group pull-right">
-              <button type="button" className="btn btn-outline-success btn-sm"
+              <button
+                type="button"
+                className="btn btn-success btn-sm"
                 onClick={() => { window.location = `customer-payment.html#/新增?customer_id=${customer_id}`; }}
               >
-                <i className="fa fa-fw fa-plus"></i>
+                <i className="fa fa-fw fa-plus" />
                 付款记录
               </button>
             </div>
@@ -252,3 +248,7 @@ export default function Detail(props) {
     </div>
   );
 }
+
+Detail.propTypes = {
+  category: PropTypes.string.isRequired,
+};

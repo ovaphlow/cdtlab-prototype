@@ -93,11 +93,7 @@ export default function SignUp() {
             </div>
 
             <div className="card-footer">
-              <button
-                type="button"
-                className="btn btn-primary btn-block"
-                onClick={handleSignUp}
-              >
+              <button type="button" className="btn btn-primary btn-block" onClick={handleSignUp}>
                 <i className="fa fa-fw fa-user-plus" />
                 注册
               </button>

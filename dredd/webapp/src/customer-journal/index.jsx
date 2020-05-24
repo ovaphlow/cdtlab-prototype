@@ -4,7 +4,12 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Detail from './Detail';
 
-ReactDOM.render(<Index />, document.getElementById('app'));
+ReactDOM.render(
+  <React.StrictMode>
+    <Index />
+  </React.StrictMode>,
+  document.getElementById('app'),
+);
 
 function Index() {
   return (

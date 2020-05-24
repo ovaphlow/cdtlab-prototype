@@ -5,7 +5,12 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 
-ReactDOM.render(<Index />, document.getElementById('app'));
+ReactDOM.render(
+  <React.StrictMode>
+    <Index />
+  </React.StrictMode>,
+  document.getElementById('app')
+);
 
 function Index() {
   return (

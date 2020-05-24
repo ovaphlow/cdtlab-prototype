@@ -51,10 +51,8 @@ export default function List() {
       <div className="btn-group pull-right">
         <button
           type="button"
-          className="btn btn-outline-success btn-sm"
-          onClick={() => {
-            window.location = '#/新增';
-          }}
+          className="btn btn-success btn-sm"
+          onClick={() => { window.location = '#/新增'; }}
         >
           <i className="fa fa-fw fa-plus" />
           新增
@@ -63,76 +61,76 @@ export default function List() {
 
       <div className="clearfix m-2" />
 
-      <div className="card shadow">
+      <div className="card bg-dark shadow">
         <div className="card-header">
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <span className="input-group-text">名称/电话</span>
-            </div>
-            <input
-              type="text"
-              name={filter_name || ''}
-              className="form-control"
-              onChange={(event) => setFilterName(event.target.value)}
-            />
-          </div>
-
-          <div className="mt-2">
-            <div className="btn-group">
-              <button
-                type="button"
-                className="btn btn-outline-secondary btn-sm"
-                onClick={() => window.location.reload(true)}
-              >
-                <i className="fa fa-fw fa-refresh" />
-                重置
-              </button>
+          <div className="form-row">
+            <div className="col-auto">
+              <div className="input-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">名称/电话</span>
+                </div>
+                <input
+                  type="text"
+                  name={filter_name || ''}
+                  className="form-control"
+                  onChange={(event) => setFilterName(event.target.value)}
+                />
+              </div>
             </div>
 
-            <div className="btn-group pull-right">
-              <button
-                type="button"
-                className="btn btn-outline-info btn-sm"
-                onClick={handleFilter}
-              >
-                <i className="fa fa-fw fa-search" />
-                查询
-              </button>
+            <div className="col-auto">
+              <div className="btn-group">
+                <button type="button" className="btn btn-info" onClick={handleFilter}>
+                  <i className="fa fa-fw fa-search" />
+                  查询
+                </button>
+                <button type="button" className="btn btn-secondary" onClick={() => { window.location.reload(true); }}>
+                  <i className="fa fa-fw fa-refresh" />
+                  重置
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="card-body">
-          <div className="list-group">
-            {customer_list.map((it) => (
-              <a
-                key={it.id}
-                href={`#${it.id}`}
-                className="list-group-item list-group-item-action"
-              >
-                <div className="d-flex w-100 justify-content-between">
-                  <h5 className="mb-1">
-                    {it.name}
-                  </h5>
-                  <small>
-                    电话：
-                    {it.tel}
-                  </small>
-                </div>
-                <ul className="list-inline mb-1">
-                  地址：
-                  <li className="list-inline-item">{it.address_level1}</li>
-                  <li className="list-inline-item">{it.address_level2}</li>
-                  <li className="list-inline-item">{it.address_level3}</li>
-                  <li className="list-inline-item">{it.address_level4}</li>
-                </ul>
-                <small>
-                  添加于：
-                  {moment(it.created_at).format('YYYY-MM-DD')}
-                </small>
-              </a>
-            ))}
-          </div>
+          <table className="table table-dark table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                <th className="text-right">序号</th>
+                <th>名称</th>
+                <th>电话</th>
+                <th>地址</th>
+                <th>添加于</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {customer_list.map((it) => (
+                <tr key={it.id}>
+                  <td className="text-right">
+                    <span className="pull-left">
+                      <a href={`#/${it.id}?uuid=${it.uuid}`}>
+                        <i className="fa fa-fw fa-edit" />
+                      </a>
+                    </span>
+                    {it.id}
+                  </td>
+                  <td>{it.name}</td>
+                  <td>{it.tel}</td>
+                  <td>
+                    <ul className="list-inline">
+                      <li className="list-inline-item">{it.address_level1}</li>
+                      <li className="list-inline-item">{it.address_level2}</li>
+                      <li className="list-inline-item">{it.address_level3}</li>
+                      <li className="list-inline-item">{it.address_level4}</li>
+                    </ul>
+                  </td>
+                  <td>{moment(it.created_at).format('YYYY-MM-DD')}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

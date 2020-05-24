@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { address } from '../address';
 
@@ -10,8 +11,7 @@ function useValues() {
   return Object.values(address);
 }
 
-export function AddressLevel1Picker(props) {
-  const { value, onChange } = props;
+export function AddressLevel1Picker({ value, onChange }) {
   const [list, setList] = useState([]);
   const keys = useKeys();
   const values = useValues();
@@ -46,17 +46,21 @@ export function AddressLevel1Picker(props) {
   );
 }
 
-export function AddressLevel2Picker(props) {
-  const { value, onChange } = props;
+AddressLevel1Picker.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+export function AddressLevel2Picker({ value, onChange, address_level1 }) {
   const [list, setList] = useState([]);
   const keys = useKeys();
   const values = useValues();
 
   useEffect(() => {
-    if (props.address_level1) {
+    if (address_level1) {
       let al1code = '';
       for (let i = 0; i < values.length; i += 1) {
-        if (values[i] === props.address_level1) {
+        if (values[i] === address_level1) {
           al1code = keys[i];
           break;
         }
@@ -91,8 +95,13 @@ export function AddressLevel2Picker(props) {
   );
 }
 
-export function AddressLevel3Picker(props) {
-  const { value, onChange, address_level2 } = props;
+AddressLevel2Picker.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  address_level1: PropTypes.string.isRequired,
+};
+
+export function AddressLevel3Picker({ value, onChange, address_level2 }) {
   const [list, setList] = useState([]);
   const keys = useKeys();
   const values = useValues();
@@ -136,9 +145,13 @@ export function AddressLevel3Picker(props) {
   );
 }
 
-export function AddressLevel4Picker(props) {
-  const { value, onChange } = props;
+AddressLevel3Picker.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  address_level2: PropTypes.string.isRequired,
+};
 
+export function AddressLevel4Picker({ value, onChange }) {
   return (
     <div className="form-group mt-3">
       <input
@@ -151,3 +164,8 @@ export function AddressLevel4Picker(props) {
     </div>
   );
 }
+
+AddressLevel4Picker.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

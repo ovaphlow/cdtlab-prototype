@@ -145,11 +145,7 @@ export default function Detail({ category }) {
 
         <div className="card-footer">
           <div className="btn-group">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={() => window.history.go(-1)}
-            >
+            <button type="button" className="btn btn-secondary" onClick={() => { window.history.go(-1); }}>
               返回
             </button>
           </div>

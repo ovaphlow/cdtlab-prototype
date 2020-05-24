@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
-export default function List(props) {
-  const { customer_id } = props;
+export default function List({ customer_id }) {
   const [list, setList] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function List(props) {
   }, []);
 
   return (
-    <table className="table table-hover">
+    <table className="table table-dark table-bordered table-striped table-hover">
       <thead>
         <tr>
           <th className="text-right">序号</th>
@@ -32,8 +32,8 @@ export default function List(props) {
           <tr key={it.id}>
             <td className="text-right">
               <span className="pull-left">
-                <a href={`customer-payment.html#/${it.id}`}>
-                  <i className="fa fa-fw fa-edit"></i>
+                <a href={`customer-payment.html#/${it.id}?uuid=${it.uuid}`}>
+                  <i className="fa fa-fw fa-edit" />
                 </a>
               </span>
               {it.id}
@@ -53,3 +53,7 @@ export default function List(props) {
     </table>
   );
 }
+
+List.propTypes = {
+  customer_id: PropTypes.string.isRequired,
+};

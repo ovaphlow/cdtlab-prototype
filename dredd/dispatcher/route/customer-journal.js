@@ -30,8 +30,8 @@ router.put('/:id', async (ctx) => {
   try {
     const sql = `
       update dredd.customer_journal
-      set uuid = $1, staff_id = $2, staff = $3, datime = $4,
-        customer_id = $5, content = $6, client = $7
+      set uuid = $1, staff_id = $2, staff_delegate = $3, datime = $4,
+        customer_id = $5, content = $6, customer_delegate = $7
       where id = $8
     `;
     const result = await cnx.query(sql, [
@@ -80,8 +80,8 @@ router.post('/', async (ctx) => {
   try {
     const sql = `
       insert into
-        dredd.customer_journal (uuid, staff_id, staff, datime, customer_id,
-          content, client)
+        dredd.customer_journal (uuid, staff_id, staff_delegate, datime, customer_id,
+          content, customer_delegate)
         values ($1, $2, $3, $4, $5,
           $6, $7)
       returning id
@@ -89,11 +89,11 @@ router.post('/', async (ctx) => {
     const result = await cnx.query(sql, [
       ctx.request.body.uuid,
       ctx.request.body.staff_id,
-      ctx.request.body.staff,
+      ctx.request.body.staff_delegate,
       ctx.request.body.datime,
       parseInt(ctx.request.body.customer_id, 10),
       ctx.request.body.content,
-      ctx.request.body.client,
+      ctx.request.body.customer_delegate,
     ]);
     ctx.response.body = { message: '', content: result.rows[0] };
   } catch (err) {

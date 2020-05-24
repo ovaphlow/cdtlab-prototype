@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { v5 as uuidv5 } from 'uuid';
 import moment from 'moment';
 
-export default function Detail(props) {
-  const { cat } = props;
+export default function Detail({ cat }) {
   const location = useLocation();
   const [amount, setAmount] = useState('0');
   const [date0, setDate0] = useState(moment().format('YYYY-MM-DD'));
@@ -67,7 +67,7 @@ export default function Detail(props) {
           </li>
 
           <li className="breadcrumb-item">
-            PAYMENT
+            <span className="text-dark">PAYMENT</span>
           </li>
 
           <li className="breadcrumb-item active" aria-current="page">
@@ -76,7 +76,7 @@ export default function Detail(props) {
         </ol>
       </nav>
 
-      <div className="card shadow">
+      <div className="card bg-dark shadow">
         <div className="card-body">
           <div className="row">
             <div className="col">
@@ -143,21 +143,13 @@ export default function Detail(props) {
 
         <div className="card-footer">
           <div className="btn-group">
-            <button
-              type="button"
-              className="btn btn-outline-secondary"
-              onClick={() => { window.history.go(-1); }}
-            >
+            <button type="button" className="btn btn-secondary" onClick={() => { window.history.go(-1); }}>
               返回
             </button>
           </div>
 
           <div className="btn-group pull-right">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleSave}
-            >
+            <button type="button" className="btn btn-primary" onClick={handleSave}>
               <i className="fa fa-fw fa-save" />
               保存
             </button>
@@ -167,3 +159,7 @@ export default function Detail(props) {
     </div>
   );
 }
+
+Detail.propTypes = {
+  cat: PropTypes.string.isRequired,
+};

@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { v5 as uuidv5 } from 'uuid';
 import moment from 'moment';
 
-export default function Detail(props) {
-  const { category } = props;
+export default function Detail({ category }) {
   const { customer_journal_id } = useParams();
   const location = useLocation();
-  const [staff, setStaff] = useState('');
+  const [staff_delegate, setStaffDelegate] = useState('');
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
   const [time, setTime] = useState(moment().format('HH:mm:ss'));
-  const [client, setClient] = useState('');
+  const [customer_delegate, setCustomerDelegate] = useState('');
   const [content, setContent] = useState('');
 
   const handleSave = async () => {
-    if (!staff || !date || !time || !client || !content) {
+    if (!staff_delegate || !date || !time || !customer_delegate || !content) {
       window.alert('请完整填写所需信息');
       return;
     }
 
     const data = {
-      uuid: uuidv5(`${staff} ${date} ${time}`, uuidv5.DNS),
+      uuid: uuidv5(`${staff_delegate} ${date} ${time}`, uuidv5.DNS),
       staff_id: 0,
-      staff,
+      staff_delegate,
       datime: `${date} ${time}`,
       customer_id: new URLSearchParams(location.search).get('customer_id'),
-      client,
+      customer_delegate,
       content,
     };
 
-    if (props.category === '新增') {
+    if (category === '新增') {
       let res = await window.fetch('/api/customer-journal/', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -41,7 +41,7 @@ export default function Detail(props) {
         return;
       }
       window.history.go(-1);
-    } else if (props.category === '编辑') {
+    } else if (category === '编辑') {
       let res = await window.fetch(`/api/customer-journal/${customer_journal_id}`, {
         method: 'PUT',
         headers: { 'content-type': 'application/json' },
@@ -57,16 +57,16 @@ export default function Detail(props) {
   };
 
   useEffect(() => {
-    if (props.category === '编辑') {
-      (async (id) => {
-        let res = await window.fetch(`/api/customer-journal/${id}`);
+    if (category === '编辑') {
+      (async () => {
+        let res = await window.fetch(`/api/customer-journal/${customer_journal_id}`);
         res = await res.json();
-        setStaff(res.content.staff);
+        setStaffDelegate(res.content.staff_delegate);
         setDate(moment(res.content.datime).format('YYYY-MM-DD'));
         setTime(moment(res.content.datime).format('HH:mm:ss'));
-        setClient(res.content.client);
+        setCustomerDelegate(res.content.customer_delegate);
         setContent(res.content.content);
-      })(customer_journal_id);
+      })();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -92,7 +92,7 @@ export default function Detail(props) {
           </li>
 
           <li className="breadcrumb-item">
-            JOURNAL
+            <span className="text-dark">JOURNAL</span>
           </li>
 
           <li className="breadcrumb-item active" aria-current="page">
@@ -101,14 +101,10 @@ export default function Detail(props) {
         </ol>
       </nav>
 
-      <div className="card shadow">
+      <div className="card bg-dark shadow">
         <div className="card-header">
           <div className="btn-group">
-            <button
-              type="button"
-              className="btn btn-outline-secondary btn-sm"
-              onClick={() => window.history.go(-1)}
-            >
+            <button type="button" className="btn btn-secondary btn-sm" onClick={() => { window.history.go(-1); }}>
               返回
             </button>
           </div>
@@ -119,9 +115,9 @@ export default function Detail(props) {
             <label>职员</label>
             <input
               type="text"
-              value={staff || ''}
+              value={staff_delegate || ''}
               className="form-control"
-              onChange={(event) => setStaff(event.target.value)}
+              onChange={(event) => setStaffDelegate(event.target.value)}
             />
           </div>
 
@@ -155,9 +151,9 @@ export default function Detail(props) {
             <label>客户</label>
             <input
               type="text"
-              value={client || ''}
+              value={customer_delegate || ''}
               className="form-control"
-              onChange={(event) => setClient(event.target.value)}
+              onChange={(event) => setCustomerDelegate(event.target.value)}
             />
           </div>
 
@@ -174,21 +170,13 @@ export default function Detail(props) {
 
         <div className="card-footer">
           <div className="btn-group">
-            <button
-              type="button"
-              className="btn btn-outline-secondary"
-              onClick={() => window.history.go(-1)}
-            >
+            <button type="button" className="btn btn-secondary" onClick={() => { window.history.go(-1); }}>
               返回
             </button>
           </div>
 
           <div className="btn-group pull-right">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleSave}
-            >
+            <button type="button" className="btn btn-primary" onClick={handleSave}>
               <i className="fa fa-fw fa-save" />
               保存
             </button>
@@ -198,3 +186,7 @@ export default function Detail(props) {
     </div>
   );
 }
+
+Detail.propTypes = {
+  category: PropTypes.string.isRequired,
+};

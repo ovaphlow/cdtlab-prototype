@@ -84,11 +84,7 @@ export default function SignIn() {
             </div>
 
             <div className="card-footer">
-              <button
-                type="button"
-                className="btn btn-primary btn-block"
-                onClick={handleSignIn}
-              >
+              <button type="button" className="btn btn-primary btn-block" onClick={handleSignIn}>
                 <i className="fa fa-fw fa-sign-in" />
                 登录
               </button>

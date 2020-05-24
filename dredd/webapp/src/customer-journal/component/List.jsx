@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
-export default function CustomerJournalList(props) {
-  const { customer_id } = props;
+export default function List({ customer_id }) {
   const [customer_journal_list, setCustomerJournalList] = useState([]);
 
   useEffect(() => {
@@ -15,18 +15,39 @@ export default function CustomerJournalList(props) {
   }, []);
 
   return (
-    <div className="list-group">
-      {customer_journal_list.map((it) => (
-        <a
-          key={it.id}
-          href={`customer-journal.html#/${it.id}?customer_id=${customer_id}`}
-          className="list-group-item list-group-item-action"
-        >
-          <h5 className="mb-1">{it.staff}</h5>
-          <small>{moment(it.datime).fromNow()}</small>
-          <p className="mb-1">{it.client}</p>
-        </a>
-      ))}
-    </div>
+    <table className="table table-dark table-hover table-bordered table-striped">
+      <thead>
+        <tr>
+          <th className="text-right">序号</th>
+          <th>日期</th>
+          <th>员工</th>
+          <th>客户代表</th>
+          <th>内容</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {customer_journal_list.map((it) => (
+          <tr key={it.id}>
+            <td className="text-right">
+              <span className="pull-left">
+                <a href={`#customer-journal.html#/${it.id}?customer_id=${customer_id}?uuid=${it.uuid}`}>
+                  <i className="fa fa-fw fa-edit" />
+                </a>
+                {it.id}
+              </span>
+            </td>
+            <td>{it.datime} ({moment(it.datime).fromNow()})</td>
+            <td>{staff_delegate}</td>
+            <td>{it.customer_delegate}</td>
+            <td>{it.content}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
+
+List.propTypes = {
+  customer_id: PropTypes.string.isRequired,
+};
