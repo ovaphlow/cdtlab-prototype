@@ -63,7 +63,6 @@ export default function SignIn() {
                     name="email"
                     value={email || ''}
                     autoComplete="email"
-                    required
                     className="form-control"
                     onChange={(event) => setEmail(event.target.value)}
                   />
@@ -75,7 +74,6 @@ export default function SignIn() {
                     type="password"
                     value={password || ''}
                     autoComplete="current-password"
-                    required
                     className="form-control"
                     onChange={(event) => setPassword(event.target.value)}
                   />

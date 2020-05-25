@@ -11,6 +11,14 @@ const router = new Router({
 
 module.exports = router;
 
+router.get('/test-salt', async (ctx) => {
+  const salt = crypto.randomBytes(8).toString('hex');
+  const hmac = crypto.createHmac('sha256', salt);
+  hmac.update('1123');
+  const result = hmac.digest('hex');
+  ctx.response.body = { message: '', content: { salt, result }};
+})
+
 router.post('/sign-up', async (ctx) => {
   const cnx = await postgres.connect();
   try {
@@ -22,7 +30,7 @@ router.post('/sign-up', async (ctx) => {
       ctx.response.body = { message: 'EMAIL已被注册，请更换。' };
       return;
     }
-    const salt = crypto.randomBytes(16).toString('hex');
+    const salt = crypto.randomBytes(8).toString('hex');
     const hmac = crypto.createHmac('sha256', salt);
     hmac.update(ctx.request.body.password);
     const password_salted = hmac.digest('hex');

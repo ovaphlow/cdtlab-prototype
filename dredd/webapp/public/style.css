@@ -17,3 +17,13 @@ code {
 .text-small {
   font-size: 0.75rem;
 }
+
+.form-control {
+  background-color: transparent;
+  color: white;
+}
+
+/* .form-control:focus {
+  background-color: transparent;
+  color: black;
+} */
